@@ -26,19 +26,19 @@ class MakeOperationRequestDict(TypedDict):
     
 class MakeFeeOperationRequestDict(MakeOperationRequestDict):
     """Структура данных для создания операции комиссии."""
-    category: str
+    pass
     
 class MakeTopUpOperationRequestDict(MakeOperationRequestDict):
     """Структура данных для создания операции пополнения счета."""
-    category: str
+    pass
     
 class MakeCashbackOperationRequestDict(MakeOperationRequestDict):
     """Структура данных для создания операции кэшбэка."""
-    category: str
+    pass
 
 class MakeTransferOperationRequestDict(MakeOperationRequestDict):
     """Структура данных для создания операции перевода средств."""
-    category: str
+    pass
     
 class MakePurchaseOperationRequestDict(MakeOperationRequestDict):
     """Структура данных для создания операции покупки."""
@@ -46,11 +46,11 @@ class MakePurchaseOperationRequestDict(MakeOperationRequestDict):
 
 class MakeBillPaymentOperationRequestDict(MakeOperationRequestDict):
     """Структура данных для создания операции оплаты счета/квитанции."""
-    category: str
+    pass
     
 class MakeCashWithdrawalOperationRequestDict(MakeOperationRequestDict):
     """Структура данных для создания операции снятия наличных."""
-    category: str
+    pass
 
 
 class OperationsGatewayHTTPClient(HTTPClient):
