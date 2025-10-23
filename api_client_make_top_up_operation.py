@@ -1,6 +1,7 @@
 from clients.http.gateway.users.client import build_users_gateway_http_client
 from clients.http.gateway.accounts.client import build_accounts_gateway_http_client
 from clients.http.gateway.operations.client import build_operations_gateway_http_client
+from clients.http.gateway.operations.schema import OperationStatusRequest
 
 # Инициализация клиентов для взаимодействия с различными сервисами Gateway
 users_gateway_client = build_users_gateway_http_client()
@@ -20,8 +21,8 @@ account_id = open_debit_card_account_response.account.id
 card_id = open_debit_card_account_response.account.cards[0].id  # берем первую карту
 
 make_top_up_operations_response = operations_gateway_client.make_top_up_operation(
-    status='COMPLETED',      # статус операции
-    amount=1500.11,          # сумма пополнения
+    status=OperationStatusRequest.COMPLETED,
+    amount=1500.11,
     card_id=card_id,         # ID карты из предыдущего шага
     account_id=account_id    # ID счета из предыдущего шага
 )
