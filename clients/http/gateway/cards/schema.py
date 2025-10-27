@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from enum import StrEnum, IntEnum
 
 
@@ -51,6 +51,8 @@ class IssuePhysicalCardRequestSchema(BaseModel):
     """
     Структура данных для выпуска физической карты.
     """
+    model_config = ConfigDict(populate_by_name=True)
+
     user_id: str = Field(alias="userId")
     account_id: str = Field(alias="accountId")
 
