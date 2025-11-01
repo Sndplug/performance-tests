@@ -1,5 +1,5 @@
 import grpc
-from contracts.services.gateway.users.rpc_get_user_pb2 import GetUserRequest, GetUserResponse
+
 from contracts.services.gateway.users.rpc_create_user_pb2 import CreateUserRequest, CreateUserResponse
 from contracts.services.gateway.users.users_gateway_service_pb2_grpc import UsersGatewayServiceStub
 
@@ -37,7 +37,7 @@ create_user_response: CreateUserResponse = users_gateway_service.CreateUser(crea
 print("Create user response:", create_user_response)
 
 
-open_credit_card_request = OpenDebitCardAccountRequest(user_id=create_user_response.user.id)
+open_credit_card_request: OpenDebitCardAccountResponse = OpenDebitCardAccountRequest(user_id=create_user_response.user.id)
 open_credit_card_response: IssueVirtualCardResponse = (
     accounts_gateway_service.OpenDebitCardAccount(open_credit_card_request))
 print("Open credit card response:", open_credit_card_response)
