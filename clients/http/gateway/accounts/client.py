@@ -14,7 +14,6 @@ from clients.http.gateway.accounts.schema import (
     OpenCreditCardAccountRequestSchema,
     OpenCreditCardAccountResponseSchema
 )
-from clients.http.gateway.client import build_gateway_http_client
 
 from clients.http.gateway.client import (
     build_gateway_http_client,
