@@ -1,7 +1,6 @@
 from typing import Any, TypedDict
 
 from httpx import Client, URL, Response, QueryParams
-from wsproto import extensions
 
 
 class HTTPClientExtensions(TypedDict, total=False):

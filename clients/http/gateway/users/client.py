@@ -1,10 +1,4 @@
-import time
-from typing import TypedDict
-
 from httpx import Response
-
-from clients.http.client import HTTPClient, HTTPClientExtensions
-from clients.http.gateway.client import build_gateway_http_client
 
 from locust.env import Environment
 
