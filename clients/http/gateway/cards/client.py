@@ -2,8 +2,12 @@ from typing import TypedDict
 
 from httpx import Response
 
-from clients.http.client import HTTPClient
-from clients.http.gateway.client import build_gateway_http_client
+from clients.http.client import HTTPClient, HTTPClientExtensions
+from locust.env import Environment
+from clients.http.gateway.client import (
+    build_gateway_http_client,
+    build_gateway_locust_http_client
+)
 from clients.http.gateway.cards.schema import (
     CardSchema,
     IssueVirtualCardRequestSchema,
@@ -25,7 +29,11 @@ class CardsGatewayHTTPClient(HTTPClient):
         :param request: Словарь с данными для выпуска виртуальной карты.
         :return: Ответ от сервера (объект httpx.Response).
         """
-        return self.post("/api/v1/cards/issue-virtual-card", json=request.model_dump(by_alias=True))
+        return self.post(
+            "/api/v1/cards/issue-virtual-card",
+            json=request.model_dump(by_alias=True),
+            extensions=HTTPClientExtensions(route="/api/v1/cards/issue-virtual-card")
+        )
 
     def issue_physical_card_api(self, request: IssuePhysicalCardRequestSchema) -> Response:
         """
@@ -34,7 +42,11 @@ class CardsGatewayHTTPClient(HTTPClient):
         :param request: Словарь с данными для выпуска физической карты.
         :return: Ответ от сервера (объект httpx.Response).
         """
-        return self.post("/api/v1/cards/issue-physical-card", json=request.model_dump(by_alias=True))
+        return self.post(
+                    "/api/v1/cards/issue-physical-card",
+                         json=request.model_dump(by_alias=True),
+                         extensions=HTTPClientExtensions(route="/api/v1/cards/issue-physical-card")
+                    )
 
     def issue_virtual_card(self, user_id: str, account_id: str) -> IssueVirtualCardResponseSchema:
         request = IssueVirtualCardRequestSchema(user_id=user_id, account_id=account_id)
@@ -54,3 +66,15 @@ def build_cards_gateway_http_client() -> CardsGatewayHTTPClient:
     :return: Готовый к использованию CardsGatewayHTTPClient.
     """
     return CardsGatewayHTTPClient(client=build_gateway_http_client())
+
+def build_cards_gateway_locust_http_client(environment: Environment) -> CardsGatewayHTTPClient:
+    """
+    Функция создаёт экземпляр AccountsGatewayHTTPClient адаптированного под Locust.
+
+    Клиент автоматически собирает метрики и передаёт их в Locust через хуки.
+    Используется исключительно в нагрузочных тестах.
+
+    :param environment: объект окружения Locust.
+    :return: экземпляр AccountsGatewayHTTPClient с хуками сбора метрик.
+    """
+    return CardsGatewayHTTPClient(client=build_gateway_locust_http_client(environment))
