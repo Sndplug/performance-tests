@@ -1,4 +1,7 @@
-from grpc import Channel, insecure_channel
+from grpc import Channel, insecure_channel, intercept_channel
+from locust.env import Environment
+from clients.grpc.interceptors.locust_interceptor import LocustInterceptor
+
 
 def build_gateway_grpc_client() -> Channel:
     """
