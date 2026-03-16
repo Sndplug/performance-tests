@@ -2,6 +2,7 @@ from locust import User, between, task
 from clients.grpc.gateway.accounts.client import AccountsGatewayGRPCClient
 from clients.grpc.gateway.users.client import UsersGatewayGRPCClient
 from clients.grpc.gateway.locust import GatewayGRPCTaskSet
+from tools.locust.user import LocustBaseUser
 
 
 class GetAccountsTaskSet(GatewayGRPCTaskSet):
@@ -52,10 +53,8 @@ class GetAccountsTaskSet(GatewayGRPCTaskSet):
         )
 
 
-class GetDocumentsScenarioUser(User):
+class GetDocumentsScenarioUser(LocustBaseUser):
     """
     Пользователь Locust, исполняющий последовательный сценарий получения документов.
     """
-    host = "localhost"
     tasks = [GetAccountsTaskSet]
-    wait_time = between(1, 3)
