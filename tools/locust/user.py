@@ -1,5 +1,4 @@
-from dns.entropy import between
-from locust import User
+from locust import User, between
 
 class LocustBaseUser(User):
     """
